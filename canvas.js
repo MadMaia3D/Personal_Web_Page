@@ -1,6 +1,6 @@
 var canvas = document.querySelector("canvas");
-canvas.width = window.innerWidth - 10;
-canvas.height = window.innerHeight - 10;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 let context = canvas.getContext('2d');
 
 // colors
@@ -19,7 +19,25 @@ let context = canvas.getContext('2d');
 // context.arc(x, y, radius, startAngle, endAngle);
 
 // requestAnimationFrame(callback)
-    
+
+let mouse = {
+    x: undefined,
+    y: undefined
+};
+
+function OnMouseMove(event) {
+    mouse.x = event.x;
+    mouse.y = event.y;
+}
+window.addEventListener('mousemove', OnMouseMove);
+
+function OnResize(event) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    InitCanvas()
+}
+window.addEventListener('resize', OnResize)
+
 
 function CreateBall(x, y, radius) {
     const Ball = {
@@ -27,15 +45,15 @@ function CreateBall(x, y, radius) {
         y: y,
         vx: 0,
         vy: 0,
+        base_radius: radius,
         radius: radius,
         color: '#888888'
     };
     return Ball;
 }
 
-function UpdateBall(ball) {
-    // ball.vy += 0.5;
 
+function UpdateBall(ball) {
     ball.x += ball.vx;
     ball.y += ball.vy;
 
@@ -61,16 +79,18 @@ function UpdateBall(ball) {
     }
 }
 
+
 function DrawBall(ball) {
     context.strokeStyle = ball.color;
     context.fillStyle = ball.color;
-    
+
     context.beginPath();
     context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
     context.stroke();
 
     context.fill();
 }
+
 
 function RandomRange(min, max) {
     return Math.random() * (max - min) + min;
@@ -89,8 +109,16 @@ function CreateColor(r, g, b, a) {
 }
 
 function Update() {
+    let growth_radius = 100;
+    let max_growth = 4;
     for (let i = 0; i < ballsArray.length; i++) {
-        UpdateBall(ballsArray[i]);
+        let current_ball = ballsArray[i];
+        if (Math.abs(current_ball.x - mouse.x) < growth_radius && Math.abs(current_ball.y - mouse.y) < growth_radius) {
+            current_ball.radius = Math.min(current_ball.radius + 2, current_ball.base_radius * max_growth);
+        } else if (current_ball.radius > current_ball.base_radius) {
+            current_ball.radius -= 2;
+        }
+        UpdateBall(current_ball);
     }
 }
 
@@ -108,26 +136,31 @@ function AnimationLoop() {
 }
 
 function StartAnimationLoop() {
+    InitCanvas();
     requestAnimationFrame(AnimationLoop);
 }
 
 
 let ballsArray = [];
+let n_balls = 500;
 let colorsArray = ['#ebeff3', '#a2bdc8', '#242c32', '#ff4f26'];
 
-
-for (let i = 0; i < 300; i++) {
-    let radius = RandomRange(5, 15);
-    let x = RandomRange(radius, innerWidth - radius);;
-    let y = RandomRange(radius, innerHeight - radius);
-    let velocity = 5;
-    let ball = CreateBall(x, y, radius);
-
-    ball.vx = RandomRange(-velocity, velocity);
-    ball.vy = RandomRange(-velocity, velocity);
-    ball.color = colorsArray[Math.floor(Math.random() * 4)];
+function InitCanvas() {
+    ballsArray = [];
     
-    ballsArray.push(ball);
+    for (let i = 0; i < n_balls; i++) {
+        let radius = RandomRange(5, 15);
+        let x = RandomRange(radius, innerWidth - radius);;
+        let y = RandomRange(radius, innerHeight - radius);
+        let velocity = 3;
+        let ball = CreateBall(x, y, radius);
+    
+        ball.vx = RandomRange(-velocity, velocity);
+        ball.vy = RandomRange(-velocity, velocity);
+        ball.color = colorsArray[Math.floor(Math.random() * 4)];
+    
+        ballsArray.push(ball);
+    }
 }
 
 StartAnimationLoop();
