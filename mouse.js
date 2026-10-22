@@ -15,9 +15,9 @@ export let mouse = {
 };
 
 
-function GetUpdatedKey(key, current_state) {
+function GetUpdatedButton(button, current_state) {
     if (current_state) {
-        switch (key) {
+        switch (button) {
             case ButtonState.RELEASED:
                 return ButtonState.JUST_PRESSED;
             case ButtonState.JUST_PRESSED:
@@ -28,7 +28,7 @@ function GetUpdatedKey(key, current_state) {
                 return ButtonState.JUST_PRESSED;
         }
     } else {
-        switch (key) {
+        switch (button) {
             case ButtonState.RELEASED:
                 return ButtonState.RELEASED;
             case ButtonState.JUST_PRESSED:
@@ -42,9 +42,9 @@ function GetUpdatedKey(key, current_state) {
 }
 
 
-export function UpdateMouse(mouse) {
-    mouse.left = GetUpdatedKey(mouse.left, mouse.is_left_down);
-    mouse.right = GetUpdatedKey(mouse.left, mouse.is_right_down);
+export function Update(mouse) {
+    mouse.left = GetUpdatedButton(mouse.left, mouse.is_left_down);
+    mouse.right = GetUpdatedButton(mouse.left, mouse.is_right_down);
 }
 
 window.addEventListener('mousemove', function (event) {
