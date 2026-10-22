@@ -4,25 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Canvas</title>
-    <style>
-        canvas {
-            border: 1px solid black;
-            display: block;
-        }
+    <title>Guilherme Maia</title>
+    <link rel="stylesheet" href="./style.css">
 
-        body {
-            margin: 0px;
-            padding: 0px;
-            overflow: hidden;
-            background-color: black;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+        rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-    <canvas style="border: 1px solid black"></canvas>
-    <script type="module" src="./projects/game_of_life/game_of_life.js"></script>
+    <header class="header font-family-google-sans">
+        <div class="header-container">
+            <h1><button class="logo">GUILHERME MAIA</button></h1>
+
+            <nav class="font-weight-100">
+                <ul class="nav-bar-list">
+                    <li><button class="nav-bar-item" type="button" data-page="home">Main</button></li>
+                    <li><button class="nav-bar-item" type="button" data-page="work">Work</button></li>
+                    <li><button class="nav-bar-item" type="button" data-page="about">About</button></li>
+                    <li><button class="nav-bar-item" type="button" data-page="contact">Contact</button></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+        <iframe src="./projects/game_of_life/game_of_life.html" title="Conway's Game of Life"></iframe>
+    </main>
 </body>
 
 </html>
