@@ -8,6 +8,8 @@ export const ButtonState = Object.freeze({
 export let mouse = {
     x: 0,
     y: 0,
+    screen_x: 0,
+    screen_y: 0,
     left: ButtonState.RELEASED,
     right: ButtonState.RELEASED,
     is_left_down: false,
@@ -47,13 +49,29 @@ export function Update(mouse) {
     mouse.right = GetUpdatedButton(mouse.left, mouse.is_right_down);
 }
 
-window.addEventListener('mousemove', function (event) {
-    mouse.x = event.x;
-    mouse.y = event.y;
-});
+
+export function WindowSpaceToCanvasSpace(mouse, canvas) {
+    if (mouse.x != mouse.last_x || mouse.y != mouse.last_y) {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = mouse.screen_x - rect.left;
+        mouse.y = mouse.screen_y - rect.top;
+    }
+}
 
 
-window.addEventListener("pointerdown", function (event) {
+export function RegisterMouseEventsToHtmlElement(html_element) {
+    html_element.addEventListener("mousemove", OnMouseMove);
+    html_element.addEventListener("pointerdown", OnMousePressed);
+    html_element.addEventListener("pointerup", OnMouseReleased);
+}
+
+function OnMouseMove (event) {
+    mouse.screen_x = event.x;
+    mouse.screen_y = event.y;
+};
+
+
+function OnMousePressed (event) {
     switch (event.button) {
         case 0:
             mouse.is_left_down = true;
@@ -64,9 +82,9 @@ window.addEventListener("pointerdown", function (event) {
             mouse.is_right_down = true;
             break;
     }
-})
+}
 
-window.addEventListener("pointerup", function (event) {
+function OnMouseReleased (event) {
     switch (event.button) {
         case 0:
             mouse.is_left_down = false;
@@ -77,4 +95,4 @@ window.addEventListener("pointerup", function (event) {
             mouse.is_right_down = false;
             break;
     }
-})
+}

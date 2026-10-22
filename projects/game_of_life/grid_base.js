@@ -1,5 +1,5 @@
-import { Vector2 } from "./vector2.js"
-import { Clamp } from "./utility.js"
+import { Vector2 } from "../../shared/vector2.js"
+import { Clamp } from "../../shared/utility.js"
 
 
 export function Create(x, y, width, height, n_columns, n_rows) {
