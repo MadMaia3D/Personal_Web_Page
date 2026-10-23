@@ -15,10 +15,9 @@ Mouse.RegisterMouseEventsToHtmlElement(canvas);
 Keyboard.RegisterKeyboardEventsToHtmlElement(window)
 
 const timer = Timer.Create(100);
-timer.enabled = false;
 
 const grid = Grid.Create(50, 50, 800, 600, 80, 60);
-Grid.Clear(grid);
+Grid.Randomize(grid);
 
 
 function Update(delta_time) {
@@ -47,7 +46,6 @@ function Update(delta_time) {
 
 
 function Render() {
-    
     Grid.Draw(context, grid);
 }
 
