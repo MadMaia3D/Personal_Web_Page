@@ -46,7 +46,7 @@ function GetUpdatedButton(button, current_state) {
 
 export function Update(mouse) {
     mouse.left = GetUpdatedButton(mouse.left, mouse.is_left_down);
-    mouse.right = GetUpdatedButton(mouse.left, mouse.is_right_down);
+    mouse.right = GetUpdatedButton(mouse.right, mouse.is_right_down);
 }
 
 
