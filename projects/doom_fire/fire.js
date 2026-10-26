@@ -1,20 +1,8 @@
-import { SetPixel } from "../../shared/canvas.js"
+import { Create, IsWorldPositionInside, WorldSpaceToCellSpace, Fill, Clear } from "../../shared/grid_base.js"
+export { Create, IsWorldPositionInside, WorldSpaceToCellSpace, Fill, Clear };
+
+import * as Image from "../../shared/image.js"    
 import { Clamp, RandomRange } from "../../shared/utility.js"
-import { Vector2 } from "../../shared/vector2.js"
-
-
-export function Create(x, y, width, height, n_columns, n_rows) {
-    let fire_board = {
-        x: x,
-        y: y,
-        width: width,
-        height: height,
-        columns: n_columns,
-        rows: n_rows,
-        data: new Array(n_columns * n_rows).fill(0)
-    }
-    return fire_board;
-}
 
 
 export function TurnOnOff(fire, set) {
@@ -23,34 +11,6 @@ export function TurnOnOff(fire, set) {
         fire.data[x + (fire.rows - 1) * fire.columns] = value;
     }
 }
-
-
-export function IsWorldPositionInside(grid, x, y) {
-    let left_border = grid.x;
-    let right_border = grid.x + grid.width;
-    let top_border = grid.y;
-    let bottom_border = grid.y + grid.height;
-    return left_border <= x && x < right_border && top_border <= y && y < bottom_border;
-}
-
-
-export function WorldSpaceToCellSpace(grid, x, y) {
-    const column_width = grid.width / grid.columns;
-    const row_height = grid.height / grid.rows;
-
-    x = Clamp(x, grid.x, grid.x + grid.width - 0.01);
-    y = Clamp(y, grid.y, grid.y + grid.height - 0.01);
-
-    x -= grid.x;
-    y -= grid.y;
-    x /= column_width;
-    y /= row_height;
-    x = Math.floor(x);
-    y = Math.floor(y);
-
-    return new Vector2(x, y);
-}
-
 
 
 export function Update(fire_board, min_decay, max_decay, min_wind, max_wind) {
@@ -93,7 +53,7 @@ export function RenderToImageData(fire_board, image_data) {
             const r = fire_palette[cell_value][0];
             const g = fire_palette[cell_value][1];
             const b = fire_palette[cell_value][2];
-            SetPixel(image_data, cx, cy, r, g, b);
+            Image.SetPixel(image_data, cx, cy, r, g, b);
         }
     }
 }

@@ -9,6 +9,7 @@ export const KeyState = Object.freeze({
 const key_codes = {
     space: "Space",
     shift: "ShiftLeft",
+    ctrl: "ControlLeft",
     w: "KeyW",
     a: "KeyA",
     s: "KeyS",
@@ -21,7 +22,7 @@ const key_codes = {
     up: "ArrowUp",
     left: "ArrowLeft",
     down: "ArrowDown",
-    right: "ArrowRight"
+    right: "ArrowRight",
 };
 
 

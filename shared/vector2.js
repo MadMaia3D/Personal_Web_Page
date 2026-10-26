@@ -107,10 +107,20 @@ export function GetRotated(source, radians) {
     return new Vector2(new_x, new_y);
 }
 
+export function GetRotated90Clockwise(source) {
+    return new Vector2(-source.y, source.x);
+}
+
 export function GetDistanceSquared(v1, v2) {
     return Sub(v2, v1).GetLengthSquared();
 }
 
 export function GetDistance(v1, v2) {
     return Math.sqrt(GetDistanceSquared(v1, v2));
+}
+
+export function Lerp(a, b, t) {
+    const x = a.x + (b.x - a.x) * t;
+    const y = a.y + (b.y - a.y) * t;
+    return new Vector2(x, y);
 }

@@ -1,4 +1,4 @@
-import { canvas, context, SetCanvasSize, SetPixel } from "../../shared/canvas.js"
+import { canvas, context, SetCanvasSize } from "../../shared/canvas.js"
 
 import * as Mouse from "../../shared/mouse.js";
 import { mouse, ButtonState } from "../../shared/mouse.js";

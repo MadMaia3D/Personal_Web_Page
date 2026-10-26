@@ -6,7 +6,7 @@ import { mouse } from "../../shared/mouse.js";
 import * as Keyboard from "../../shared/keyboard.js";
 import { keyboard } from "../../shared/keyboard.js";
 
-import * as Grid from "./grid_base.js";
+import * as Grid from "./game_board.js";
 import * as Timer from "../../shared/timer.js";
 
 
